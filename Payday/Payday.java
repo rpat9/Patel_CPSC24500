@@ -7,8 +7,8 @@ public class Payday {
 
   private static double numOfHours;
   private static double hourlyPayRate;
-  private static boolean isUnionMember = false; //Assume the person isn't a union member.
-  private static double unionDuesPercent = 0.05; //For this problem, this is a constant value.
+  private static boolean isUnionMember = false; // Assume the person isn't a union member.
+  private static double unionDuesPercent = 0.05; // For this problem, this is a constant value.
   private static double medicalDeductionPercent;
 
   public static void main(String[] args) {
@@ -27,24 +27,29 @@ public class Payday {
     System.out.print("Enter name: ");
     String name = scan.nextLine(); // Getting name from the user.
 
-    System.out.print("\nEnter hours worked: ");
+    System.out.print("Enter hours worked: ");
     numOfHours = scan.nextDouble(); // Getting hours worked for the user.
 
-    System.out.print("\nEnter hourly pay rate: ");
+    System.out.print("Enter hourly pay rate: ");
     hourlyPayRate = scan.nextDouble(); // Getting the hourly pay rate for the user.
 
-    scan.nextLine(); //Fixes the end of line issue. Inputs below can now be stored.
+    scan.nextLine(); // Fixes the end of line issue. Inputs below can now be stored.
 
-    System.out.print("\nAre you a union member (y or n)? ");
+    System.out.print("Are you a union member (y or n)? ");
     String union = scan.nextLine(); // Finding out if the person is a union member.
 
-    if(union.toLowerCase().equals("y")){
-      isUnionMember = true; //Accounts for the case where the user accidentally types uppercase.
+    if (union.equalsIgnoreCase("y")) {
+      isUnionMember = true; // Accounts for the case where the user types uppercase.
     }
 
-    System.out.print("\nWhat percentage do you want to withold for your medical savings account? ");
+    System.out.print("What percentage do you want to withold for your medical savings account? ");
     medicalDeductionPercent = scan.nextDouble(); // Getting input for medical deduction.
-    medicalDeductionPercent/=100; //Turning it into a decimal value for easier calculations.
+    medicalDeductionPercent /= 100; // Turning it into a decimal value for easier calculations.
+
+    System.out.println("\n---------PAYCHECK---------");
+
+    double grossPay = hourlyPayRate * numOfHours;
+    System.out.printf("%.2f", grossPay);
 
     scan.close();
   }
