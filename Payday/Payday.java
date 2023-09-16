@@ -48,8 +48,60 @@ public class Payday {
 
     System.out.println("\n---------PAYCHECK---------");
 
+    //Calculating and printing gross pay.
     double grossPay = hourlyPayRate * numOfHours;
-    System.out.printf("%.2f", grossPay);
+    System.out.printf("%-15s $%8.2f\n", "Gross Pay", grossPay); 
+
+    //Calculating and printing union dues, if any.
+    double unionMoney = grossPay*unionDuesPercent;
+
+    if(isUnionMember) {
+      System.out.printf("%-15s $%8.2f\n", "Union Dues", unionMoney);
+    } else System.out.printf("%-15s $%8.2f\n", "Union Dues", 0.00);
+
+    //Calculating medical deduction if person desires.
+    double medDeduction = grossPay*medicalDeductionPercent;
+    System.out.printf("%-15s $%8.2f\n", "Med Deduction", medDeduction);
+
+    //Calculating incident dues, whether to add or subtract.
+    if(addOrSubtract==1){
+      System.out.printf("%-15s $%8.2f\n", "Incident Pay", incidentPay);
+    } else System.out.printf("%-15s $%8.2f\n", "Incident Pay", incidentPay*-1.0);
+
+    //Determining tax rate.
+    double taxRate = 0;
+
+    if(grossPay>=2500){
+      taxRate = 0.25;
+    } else if (grossPay >= 1500 && grossPay < 2500){
+      taxRate = 0.15;
+    } else if (grossPay >= 500 && grossPay < 1500){
+      taxRate = 0.1;
+    } else taxRate = 0.05;
+
+    //Calculations for Net Pay.
+    double netPay = grossPay;
+
+    if(addOrSubtract==1){netPay+=incidentPay;}else{netPay-=incidentPay;} //Adds or subtracts incident pay randomly.
+
+    double grossAndIncidentTotal = netPay;
+
+    if(isUnionMember){
+      netPay-=unionMoney; //Only subtracts from gross pay if union member.
+      grossAndIncidentTotal-=unionMoney; //Deduction for taxes.
+    } 
+
+    netPay-=medDeduction; //Medical deduction.
+
+    double taxes = (grossAndIncidentTotal-medDeduction)*taxRate; //Calculating taxes.
+    netPay-=taxes;
+
+    System.out.printf("%-15s $%8.2f\n", "Taxes", taxes);
+    System.out.printf("%-15s $%8.2f\n", "Net Pay", netPay);
+    System.out.println("--------------------------");
+    
+    System.out.printf("Prepared for %s\n", name);
+    System.out.println("\nThank you for using this program.");
 
     scan.close();
   }
