@@ -11,7 +11,7 @@ import java.util.Scanner;
     /**
      * Prints the customized welcome banner right when the program begins.
      */
-    public void WelcomeBanner(){
+    public void welcomeBanner(){
         System.out.println("*".repeat(65));
         System.out.printf("%41s", "SHAPE CALCULATOR\n");
         System.out.println("*".repeat(65));
@@ -57,7 +57,7 @@ import java.util.Scanner;
 
         ShapeCalculator shape = new ShapeCalculator();
         Scanner scan = new Scanner(System.in);
-        shape.WelcomeBanner();
+        shape.welcomeBanner();
         String choice;
 
         while(true){
@@ -71,7 +71,7 @@ import java.util.Scanner;
 
             } else if(choice.equalsIgnoreCase("c")){
 
-                System.out.print("Enter Radius: ");
+                System.out.print("Enter the radius: ");
                 double radius  = scan.nextDouble();
                 shape.calculateCircle(radius);
 
@@ -84,7 +84,7 @@ import java.util.Scanner;
 
             } else if (choice.equalsIgnoreCase("t")){
 
-                System.out.print("Enter the lengths of the 3 sides: ");
+                System.out.print("Enter the lengths of the three sides: ");
                 double a = scan.nextDouble();
                 double b = scan.nextDouble();
                 double c = scan.nextDouble();
