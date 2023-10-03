@@ -10,6 +10,8 @@ import java.io.File;
 
 public class TextAnalyzer {
 
+  private static int consonantCount = 0;
+
   /**
    * This method prints the welcome banner when the program is ran.
    */
@@ -32,7 +34,38 @@ public class TextAnalyzer {
     System.out.print("Enter the number of your choice: ");
   }
 
-  // static int countVowels(String fileName)
+  public static int countVowels(String fileName) {
+
+    int vowelCount = 0;
+
+    try {
+      Scanner fsc = new Scanner(new File(fileName));
+
+      String line;
+      String allTogether = "";
+
+      while (fsc.hasNextLine()) {
+        line = fsc.nextLine();
+        allTogether = allTogether + line + " ";
+        allTogether = allTogether.trim().toLowerCase();
+      }
+
+      fsc.close();
+
+      for (int i = 0; i < allTogether.length(); i++) {
+        if (allTogether.charAt(i) == 'a' || allTogether.charAt(i) == 'e' || allTogether.charAt(i) == 'i'
+            || allTogether.charAt(i) == 'o' || allTogether.charAt(i) == 'u') {
+          vowelCount++;
+        } else {
+          consonantCount++;
+        }
+      }
+
+    } catch (Exception e) {
+      System.out.println("File is not found");
+    }
+    return vowelCount;
+  }
 
   public static void main(String[] args) {
     Scanner scan = new Scanner(System.in);
@@ -41,13 +74,41 @@ public class TextAnalyzer {
     System.out.print("What file would you like to analyze? ");
     String fileName = scan.nextLine();
 
-    int choice;
+    int choice = 0;
 
-    do {
+    while (choice != 5) {
       printOptions();
-      choice = scan.nextInt();
 
-    } while (choice != 5);
+      /*
+       * 
+       * try {
+       * choice = scan.nextInt();
+       * 
+       * if (choice == 1) {
+       * System.out.printf("There are %d vowels.\n", countVowels(fileName));
+       * } else if (choice == 2) {
+       * countVowels(fileName);
+       * System.out.printf("There are %d consonants.\n", consonantCount);
+       * 
+       * } else if (choice == 3) {
+       * 
+       * } else if (choice == 4) {
+       * 
+       * } else if (choice == 5) {
+       * break;
+       * } else {
+       * System.out.println("That is not a valid choice.");
+       * continue;
+       * }
+       * 
+       * } catch (Exception e) {
+       * System.out.
+       * println("You have to enter the number of your choice. You didn't type a number."
+       * );
+       * continue;
+       * }
+       */
+    }
 
     scan.close();
   }
