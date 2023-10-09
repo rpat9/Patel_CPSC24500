@@ -10,8 +10,6 @@ import java.io.File;
 
 public class TextAnalyzer {
 
-  private static int consonantCount = 0;
-
   /**
    * This method prints the welcome banner when the program is ran.
    */
@@ -34,6 +32,12 @@ public class TextAnalyzer {
     System.out.print("Enter the number of your choice: ");
   }
 
+  /**
+   * This method calculates the number of vowels in a file.
+   * 
+   * @param fileName File that the user wants to check.
+   * @return Returns the vowel count.
+   */
   public static int countVowels(String fileName) {
 
     int vowelCount = 0;
@@ -56,8 +60,6 @@ public class TextAnalyzer {
         if (allTogether.charAt(i) == 'a' || allTogether.charAt(i) == 'e' || allTogether.charAt(i) == 'i'
             || allTogether.charAt(i) == 'o' || allTogether.charAt(i) == 'u') {
           vowelCount++;
-        } else {
-          consonantCount++;
         }
       }
 
@@ -65,6 +67,45 @@ public class TextAnalyzer {
       System.out.println("File is not found");
     }
     return vowelCount;
+  }
+
+  /**
+   * This function finds the number of consonant letters in a file and returns it.
+   * 
+   * @param fileName File that the user wants to check.
+   * @return Returns the consonants count.
+   */
+  public static int countConsonants(String fileName) {
+
+    int consonantCount = 0;
+
+    try {
+      Scanner fsc = new Scanner(new File(fileName));
+
+      String line;
+      String allTogether = "";
+
+      while (fsc.hasNextLine()) {
+        line = fsc.nextLine().trim();
+        allTogether = allTogether + line;
+        allTogether = allTogether.toUpperCase();
+      }
+
+      fsc.close();
+
+      for (int i = 0; i < allTogether.length(); i++) {
+        if (allTogether.charAt(i) >= 'A' && allTogether.charAt(i) <= 'Z') {
+          if (allTogether.charAt(i) != 'A' && allTogether.charAt(i) != 'E' && allTogether.charAt(i) != 'I'
+              && allTogether.charAt(i) != 'O' && allTogether.charAt(i) != 'U') {
+            consonantCount++;
+          }
+        }
+      }
+
+    } catch (Exception e) {
+      System.out.println("File is not found");
+    }
+    return consonantCount;
   }
 
   public static void main(String[] args) {
@@ -79,35 +120,16 @@ public class TextAnalyzer {
     while (choice != 5) {
       printOptions();
 
-      /*
-       * 
-       * try {
-       * choice = scan.nextInt();
-       * 
-       * if (choice == 1) {
-       * System.out.printf("There are %d vowels.\n", countVowels(fileName));
-       * } else if (choice == 2) {
-       * countVowels(fileName);
-       * System.out.printf("There are %d consonants.\n", consonantCount);
-       * 
-       * } else if (choice == 3) {
-       * 
-       * } else if (choice == 4) {
-       * 
-       * } else if (choice == 5) {
-       * break;
-       * } else {
-       * System.out.println("That is not a valid choice.");
-       * continue;
-       * }
-       * 
-       * } catch (Exception e) {
-       * System.out.
-       * println("You have to enter the number of your choice. You didn't type a number."
-       * );
-       * continue;
-       * }
-       */
+      choice = scan.nextInt();
+      if (choice > 5 || choice <= 0) {
+        System.out.println("That is not a valid choice.");
+        continue;
+      } else if (choice == 1) {
+        System.out.printf("There are %d vowels.", countVowels(fileName));
+      } else if (choice == 2) {
+        System.out.printf("There are %d consonants.", countConsonants(fileName));
+      }
+
     }
 
     scan.close();
