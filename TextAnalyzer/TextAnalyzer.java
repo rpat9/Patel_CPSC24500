@@ -23,7 +23,6 @@ public class TextAnalyzer {
     System.out.println("*".repeat(80));
   }
 
-
   /**
    * This method prints the options that the user has in this program.
    */
@@ -37,6 +36,28 @@ public class TextAnalyzer {
     System.out.print("Enter the number of your choice: ");
   }
 
+  /**
+   * This method reads the file and returns the contents of the file as a String.
+   * 
+   * @param fileName The file that the user inputs.
+   * @return Returns a string or null whether or not the file was read.
+   */
+  public static String readFile(String fileName) {
+    try {
+      Scanner fsc = new Scanner(new File(fileName));
+      String line;
+      String allTogether = "";
+      while (fsc.hasNextLine()) {
+        line = fsc.nextLine();
+        allTogether = allTogether + line + " ";
+      }
+      fsc.close();
+      return allTogether;
+
+    } catch (Exception e) {
+      return null;
+    }
+  }
 
   /**
    * This method calculates the number of vowels in a file.
@@ -44,37 +65,20 @@ public class TextAnalyzer {
    * @param fileName File that the user wants to check.
    * @return Returns the vowel count.
    */
-  public static int countVowels(String fileName) { 
-      int vowelCount = 0;
-  
-      try {
-        Scanner fsc = new Scanner(new File(fileName));
-  
-        String line;
-        String allTogether = "";
-  
-        while (fsc.hasNextLine()) {
-          line = fsc.nextLine();
-          allTogether = allTogether + line + " ";
-          allTogether = allTogether.trim().toLowerCase();
-        }
-  
-        fsc.close();
-  
-        for (int i = 0; i < allTogether.length(); i++) {
-          if (allTogether.charAt(i) == 'a' || allTogether.charAt(i) == 'e' || allTogether.charAt(i) == 'i'
-              || allTogether.charAt(i) == 'o' || allTogether.charAt(i) == 'u') {
-            vowelCount++;
-          }
-        }
-  
-      } catch (Exception e) {
-        System.out.println("File is not found.");
-      }
-      return vowelCount;
-      
-  }
+  public static int countVowels(String fileName) {
+    int vowelCount = 0;
 
+    String allTogether = readFile(fileName).toLowerCase();
+
+    for (int i = 0; i < allTogether.length(); i++) {
+      if (allTogether.charAt(i) == 'a' || allTogether.charAt(i) == 'e' || allTogether.charAt(i) == 'i'
+          || allTogether.charAt(i) == 'o' || allTogether.charAt(i) == 'u') {
+        vowelCount++;
+      }
+    }
+
+    return vowelCount;
+  }
 
   /**
    * This method finds the number of consonant letters in a file.
@@ -85,106 +89,63 @@ public class TextAnalyzer {
   public static int countConsonants(String fileName) {
 
     int consonantCount = 0;
+    String allTogether = readFile(fileName).toUpperCase();
 
-    try {
-      Scanner fsc = new Scanner(new File(fileName));
-
-      String line;
-      String allTogether = "";
-
-      while (fsc.hasNextLine()) {
-        line = fsc.nextLine().trim();
-        allTogether = allTogether + line;
-        allTogether = allTogether.toUpperCase();
-      }
-
-      fsc.close();
-
-      for (int i = 0; i < allTogether.length(); i++) {
-        if (allTogether.charAt(i) >= 'A' && allTogether.charAt(i) <= 'Z') {
-          if (allTogether.charAt(i) != 'A' && allTogether.charAt(i) != 'E' && allTogether.charAt(i) != 'I'
-              && allTogether.charAt(i) != 'O' && allTogether.charAt(i) != 'U') {
-            consonantCount++;
-          }
+    for (int i = 0; i < allTogether.length(); i++) {
+      if (allTogether.charAt(i) >= 'A' && allTogether.charAt(i) <= 'Z') {
+        if (allTogether.charAt(i) != 'A' && allTogether.charAt(i) != 'E' && allTogether.charAt(i) != 'I'
+            && allTogether.charAt(i) != 'O' && allTogether.charAt(i) != 'U') {
+          consonantCount++;
         }
       }
-
-    } catch (Exception e) {
-      System.out.println("File is not found.");
     }
     return consonantCount;
   }
 
-  
   /**
    * This method calculates how many words there are in a given file.
+   * 
    * @param fileName File that the user wants to check.
    * @return Returns the word count.
    */
-  public static int countWords(String fileName){
+  public static int countWords(String fileName) {
     int count = 0;
-  
-    try{
-      Scanner fsc = new Scanner(new File(fileName));
+    String allTogether = readFile(fileName);
 
-      String line;
-      String allTogether = "";
-
-      while (fsc.hasNextLine()) {
-        line = fsc.nextLine();
-        allTogether = allTogether + line + " ";
+    for (char a : allTogether.toCharArray()) {
+      if (a == ' ') {
+        count++;
       }
-
-      fsc.close();
-
-      for (char a : allTogether.toCharArray()){
-        if(a == ' '){
-          count++;
-        }
-      }
-
-      return count;
-
-    } catch (Exception e) {
-      System.out.println("File not found.");
-      
     }
-    return 0;
+    return count;
   }
 
-
   /**
-   * This method writes to a summary of the file to another file, both names are given by the user.
-   * @param fileName The file that contains that text to summarize.
+   * This method writes to a summary of the file to another file, both names are
+   * given by the user.
+   * 
+   * @param fileName       The file that contains that text to summarize.
    * @param outputFileName The file that the method writes to and prints summary.
    * @return returns true of false whether the task was done or not.
    */
-  public static Boolean writeToFile(String fileName, String outputFileName){
-    
-    String line;
+  public static Boolean writeToFile(String fileName, String outputFileName) {
 
-    try{
-      Scanner fsc = new Scanner(new File(fileName));
+    String allTogether = readFile(fileName);
+
+    try {
       PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(new File(outputFileName))));
 
-      while(fsc.hasNextLine()){
-        line = fsc.nextLine() + " ";
-        pw.print(line);
-      }
+      pw.print(allTogether);
+      pw.println("\n\nThere are " + countVowels(fileName) + " vowels, " + countConsonants(fileName)
+          + " consonants, and " + countWords(fileName) + " words.");
 
-      pw.println("\n\nThere are " + countVowels(fileName) + " vowels, " + countConsonants(fileName) + " consonants, and " + countWords(fileName) + " words.");
-
-      fsc.close();
       pw.close();
+      return true;
 
-    } catch (Exception e){
-      System.out.println("The summary was not written to the file. ");
+    } catch (Exception e) {
       return false;
     }
-
-    return true;
   }
-
 
   public static void main(String[] args) {
     Scanner scan = new Scanner(System.in);
@@ -192,6 +153,18 @@ public class TextAnalyzer {
 
     System.out.print("What file would you like to analyze? ");
     String fileName = scan.nextLine();
+
+    boolean allGood = false;
+    while (!allGood) {
+
+      if (readFile(fileName) == null) {
+        System.out.println("There was an error reading the file");
+        System.out.print("What file would you like to analyze? ");
+        fileName = scan.nextLine();
+      } else {
+        break;
+      }
+    }
 
     int choice = 0;
 
@@ -214,16 +187,16 @@ public class TextAnalyzer {
 
           System.out.printf("There are %d consonants.\n", countConsonants(fileName));
 
-        } else if (choice == 3){
+        } else if (choice == 3) {
 
           System.out.printf("There are %d words.\n", countWords(fileName));
 
-        } else if (choice == 4){
+        } else if (choice == 4) {
 
           System.out.print("Enter the name of the file to write the summary: ");
           String outputFile = scan.nextLine();
 
-          if(writeToFile(fileName, outputFile)){
+          if (writeToFile(fileName, outputFile)) {
             System.out.println("The summary was written to a file.");
           } else {
             System.out.println("The summary was not written to a file.");
@@ -233,9 +206,10 @@ public class TextAnalyzer {
 
       } catch (Exception e) {
         System.out.println("You have to enter the number of your choice. You didn't type a number.");
-        scan.nextLine(); //Need to use this to clear the stream otherwise the program crashes by printing options infnite times.
+        scan.nextLine(); // Need to use this to clear the stream otherwise the program crashes by
+                         // printing options infnite times.
       }
-      
+
     }
     scan.close();
   }
