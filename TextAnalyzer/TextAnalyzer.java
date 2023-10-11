@@ -206,11 +206,11 @@ public class TextAnalyzer {
 
       } catch (Exception e) {
         System.out.println("You have to enter the number of your choice. You didn't type a number.");
-        scan.nextLine(); // Need to use this to clear the stream otherwise the program crashes by
-                         // printing options infnite times.
+        scan.nextLine(); // Need to use this to clear the stream otherwise the program crashes by printing options infnite times.
       }
 
     }
+    System.out.println("\nThank you for using this program.");
     scan.close();
   }
 }
