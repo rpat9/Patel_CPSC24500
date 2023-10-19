@@ -232,7 +232,6 @@ public class Madlibs {
 
     String choice;
     ArrayList<String> result;
-    ;
 
     while (true) {
       System.out.print("\nEnter a story number or q to quit: ");
