@@ -14,7 +14,7 @@ public class Email {
   private String recepient2;
   private String subject;
   private String body;
-  private ArrayList<String> email = new ArrayList<String>();
+  private static ArrayList<String> emails = new ArrayList<String>();
   private boolean status = false;
 
   public Email() {
@@ -26,9 +26,18 @@ public class Email {
     this.recepient2 = recepient2;
     this.subject = subject;
     this.body = body;
+    emails.add(recepient1 + "\t" + recepient2 + "\t" + subject + "\t" + body);
   }
 
-  public void doEmail() {
+  public static void getEmailList() {
+    String[] part = new String[4];
+    System.out.println("Here are your emails: ");
+    for (int i = 0; i < emails.size(); i++) {
+      part = emails.get(i).split("\t");
+      System.out.printf("\n%-15s%10s\n", "To:", part[0] + "," + part[1]);
+      System.out.printf("%-15s%10s\n", "Subject:", part[2]);
+      System.out.printf("%-15s%10s\n", "Body:", part[3]);
+    }
 
   }
 

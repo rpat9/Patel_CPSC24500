@@ -23,6 +23,7 @@ public class EmailApp {
 
     int choice;
     String r1, r2, body, subject;
+    Email e = new Email();
 
     while (true) {
 
@@ -30,7 +31,7 @@ public class EmailApp {
 
       try {
         choice = sc.nextInt();
-      } catch (Exception e) {
+      } catch (Exception ex) {
         System.out.println("You must enter a valid integer. Try again.");
         sc.nextLine();
         continue;
@@ -51,6 +52,10 @@ public class EmailApp {
         System.out.print("Enter body: ");
         body = sc.nextLine();
 
+        e = new Email(r1, r2, subject, body);
+
+      } else if (choice == 2) {
+        Email.getEmailList();
       }
 
     }
