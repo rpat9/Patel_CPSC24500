@@ -8,27 +8,13 @@ import java.util.ArrayList;
  * as help.
  */
 
-// FOR ME:
-/*
- * prints the welcome banner, repeatedly prints the menu until the user decides
- * to quit, and responds to the user's selection,
- * including warning the user when they enter an invalid option.
- * 
- * The program successfully interviews the user for details about an
- * email and then creates an Email object and adds it to an ArrayList of them.
- * 
- * The program prints the details of all the emails as shown in the sample
- * output. It calls EmailPrinter’s function for writing to
- * the screen to accomplish this.
- * 
- * The program tells all the Email objects to send() so that their send status
- * switches to true when the user elects to send them.
- */
-
 public class EmailApp {
 
   private static ArrayList<Email> ems = new ArrayList<Email>();
 
+  /**
+   * This method prints the welcome banner to the screen.
+   */
   public static void printWelcome() {
     System.out.println("*".repeat(80));
     System.out.println("                              Emailer Version 1.0");
@@ -36,12 +22,18 @@ public class EmailApp {
 
   }
 
+  /**
+   * This method prints the choices that the user has to the screen.
+   */
   public static void printChoices() {
     System.out.println("\nHere are your choices: ");
     System.out.println("1. Write email\n2. List emails\n3. Send emails\n4. Save emails to file\n5. Exit");
     System.out.print("Enter the number of your choice: ");
   }
 
+  /**
+   * This method prints to the screen every email that the user created.
+   */
   public static void getEmailList() {
     System.out.println("Here are your emails:");
     for (Email em : ems) {
@@ -106,13 +98,11 @@ public class EmailApp {
         sc.nextLine();
         System.out.print("Enter the name of the file to save: ");
         file = sc.nextLine();
-
-        for (Email em : ems) {
-          EmailPrinter.writeToFile(file, em);
-        }
+        EmailPrinter.writeToFile(file, ems);
       }
 
     }
     sc.close();
   }
+
 }
