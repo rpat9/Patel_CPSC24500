@@ -12,24 +12,33 @@ public abstract class Exercise implements Comparable<Exercise> {
   private String name;
   private String comment;
   private int duration;
-  private SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");;
+  private SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy"); // Used to convert back and forth between date and
+                                                                    // strings.
   private Date date;
 
   public Exercise() {
-    name = "";
     name = "";
     comment = "";
     duration = 0;
   }
 
-  public Exercise(double cal, int du, String comm, String name) {
-    this.duration = du;
-    this.comment = comm;
+  public Exercise(int duration, String comment, String name, String dateStr) {
+    this.duration = duration;
+    this.comment = comment;
     this.name = name;
+    try {
+      date = df.parse(dateStr);
+    } catch (Exception e) {
+      date = new Date(); // Sets the excerise date to today if user's date fails/
+    }
   }
 
   public Date getDate() {
     return date;
+  }
+
+  public String getDateString() {
+    return df.format(date);
   }
 
   public String getExerciseName() {
@@ -40,7 +49,7 @@ public abstract class Exercise implements Comparable<Exercise> {
     return comment;
   }
 
-  public double getDuration() {
+  public int getDuration() {
     return duration;
   }
 
@@ -53,8 +62,8 @@ public abstract class Exercise implements Comparable<Exercise> {
 
   public abstract String toString();
 
-  public abstract Exercise getType();
+  public abstract String getType();
 
-  public abstract double getCaloriesBurned();
+  // public abstract double getCaloriesBurned();
 
 }
