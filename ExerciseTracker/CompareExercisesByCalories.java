@@ -10,11 +10,11 @@ public class CompareExercisesByCalories implements Comparator<Exercise> {
     double cal2 = one.calculateCalories();
 
     if (cal1 < cal2) {
-      return -1;
+      return 1;
     } else if (cal1 == cal2) {
       return 0;
     } else {
-      return 1;
+      return -1;
     }
   }
 }
