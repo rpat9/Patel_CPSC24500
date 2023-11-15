@@ -6,12 +6,18 @@ import java.util.Collections;
 
 public class ExerciseApp {
 
-  public static void printMenu(){
+  /**
+   * This method prints out the banner at the start of this program.
+   */
+  public static void printBanner(){
     System.out.println("*".repeat(80));
     System.out.println("                             EXERCISE TRACKER V1.0");
     System.out.println("*".repeat(80));
   }
 
+  /**
+   * This method prints out options for the user to select. The user has the option to quit at any moment.
+   */
   public static void printOptions(){
     System.out.println("\nThese are your choices:\n1. Add an exercise\n2. Print exercises to file\n3. List sorted by date\n4. List sorted by calories burned\n5. Exit");
     System.out.print("Enter the number of your choice: ");
@@ -21,7 +27,7 @@ public class ExerciseApp {
     Scanner scan = new Scanner(System.in);
     ArrayList<Exercise> es = new ArrayList<Exercise>();
 
-    printMenu();
+    printBanner();
 
     int choice, weightLiftedInPounds, heightOfWall, timesClimbed;
     double userDistance, userDuration;
@@ -96,7 +102,7 @@ public class ExerciseApp {
 
       } else if (choice == 2){
         scan.nextLine(); //clears the stream
-        System.out.println("Enter the name of the file to save: ");
+        System.out.print("Enter the name of the file to save: ");
         String fileName = scan.nextLine();
 
         if(WriteExercisesToFile.writeToFile(es, fileName)){
@@ -109,19 +115,20 @@ public class ExerciseApp {
         Collections.sort(es);
 
         for(Exercise e : es){
-          System.out.println(e);
+          System.out.printf("%-20s %-20s %-20s %10.2f\n", e.getType(), e.getName(), e.getDateString(), e.calculateCalories());
         }
 
       } else if (choice == 4){
 
         Collections.sort(es, new CompareExercisesByCalories());
         for(Exercise e : es){
-          System.out.println(e);
+          System.out.printf("%-20s %-20s %-20s %10.2f\n", e.getType(), e.getName(), e.getDateString(), e.calculateCalories());
         }
 
       }
 
     }
+    System.out.println("Congratulations on staying in shape!");
     scan.close();
   }
 }
