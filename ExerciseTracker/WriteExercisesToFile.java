@@ -15,7 +15,7 @@ public class WriteExercisesToFile {
             PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(new File(fileName))));
 
             for (Exercise e : exercises){
-                pw.println(e);
+                pw.println(e + "\t" + e.getComment());
             }
 
             pw.close();
