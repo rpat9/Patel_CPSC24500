@@ -9,6 +9,7 @@ public abstract class Exercise {
     private Date date;
     private String comment;
     private SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+    private String dateString;
 
     public Exercise(){
         ExerciseName = "";
@@ -20,13 +21,15 @@ public abstract class Exercise {
         this.comment = comm;
         try {
             date = df.parse(dateStr);
+            dateString = df.format(date);
           } catch (Exception e) {
-            date = new Date(); 
+            date = new Date();
+            dateString = ""; 
         }
     }
 
     public String getDateString(){
-        return df.format(date);
+        return dateString;
     }
 
     public String getExerciseName() {

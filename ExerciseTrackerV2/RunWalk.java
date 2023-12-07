@@ -1,5 +1,7 @@
 package ExerciseTrackerV2;
 
+import java.util.ArrayList;
+
 public class RunWalk extends Exercise{
 
     private double dist;
@@ -33,6 +35,14 @@ public class RunWalk extends Exercise{
         if(duration>=0){
             this.dur = duration;
         }
+    }
+
+    public static double getCaloriesBurned(ArrayList <RunWalk> ex){
+        double total = 0;
+        for (RunWalk r : ex){
+            total+=r.calculateCaloriesBurned();
+        }
+        return total;
     }
 
     @Override

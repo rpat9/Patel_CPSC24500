@@ -49,6 +49,22 @@ public class ExerciseDetailPanel extends JPanel{
 
     }
 
+    public void enableEntries(boolean enableYN){
+        textComment.setEnabled(enableYN);
+        textName.setEnabled(enableYN);
+        textDate.setEnabled(enableYN);
+        textDuration.setEnabled(enableYN);
+        textDistance.setEnabled(enableYN);
+    }
+
+    public void clearEntries(){
+        textComment.setText("");
+        textName.setText("");
+        textDate.setText("");
+        textDistance.setText("");
+        textDuration.setText("");
+    }
+
     public ExerciseDetailPanel(){
         setupGUI();
     }

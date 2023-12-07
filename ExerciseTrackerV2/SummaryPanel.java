@@ -11,19 +11,25 @@ public class SummaryPanel extends JPanel{
 
     private ArrayList<RunWalk> exercises;
     private JTextArea exerciseSummary;
+    private JLabel labelSummary;
 
     public void setupGUI(){
         setLayout(new BorderLayout());
 
         JPanel panNorth = new JPanel();
         panNorth.setLayout(new FlowLayout());
-        JLabel labelSummary = new JLabel("Exercise Summary");
+        labelSummary = new JLabel("Exercise Summary");
         panNorth.add(labelSummary);
         add(panNorth, BorderLayout.NORTH);
 
         exerciseSummary = new JTextArea(10,30);
+        exerciseSummary.setEditable(false);
         add(exerciseSummary, BorderLayout.CENTER);
 
+    }
+
+    public void setSummaryLabel(String txt){
+        labelSummary.setText(txt);
     }
 
     public void updateList(){

@@ -1,0 +1,3 @@
+run1                runwalk          01/01/2023                Good               20.00
+run2                runwalk          12/01/2023                Bad!               25.00
+run3                runwalk          12/03/2023                Okay               11.00
